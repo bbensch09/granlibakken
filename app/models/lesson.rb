@@ -237,12 +237,8 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-  def includes_lift_or_rental_package?
-    if self.includes_lift_or_rental_package == true
-      return true
-    else
-      return false
-    end
+  def includes_rental?
+    self.product_name == '1hr Learn to Ski Package (rental included)' ? 'Yes' : 'No'
   end
 
   def confirmed?

@@ -32,6 +32,7 @@
     <tr>
       <th class="lessons-table-cells lesson-instructor"> ID</th>
       <th class="lessons-table-cells lesson-date">Date</th>
+      <th class="lessons-table-cells lesson-date">Type</th>
       <th class="lessons-table-cells lesson-instructor"></th>
       <th class="lessons-table-cells lesson-type">Type</th>
       <th class="lessons-table-cells lesson-type">Rental Package?</th>
@@ -51,9 +52,10 @@
           <tr>
             <td class="lessons-table-cells"><%= lesson.id %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td class="lessons-table-cells lesson-date"><%= lesson.activity %></td>
             <td class="lessons-table-cells lesson-instructor"><%= link_to "Review Lesson", lesson, class: "btn btn-default" %></td>
             <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot[0..15] %></td>
-            <td class="lessons-table-cells lesson-student"><%= lesson.gear %></td>
+            <td class="lessons-table-cells lesson-student"><%= lesson.includes_rental? %></td>
             <td class="lessons-table-cells lesson-student"><%= lesson.name %></td>
             <% if lesson.requester %>
               <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td>
