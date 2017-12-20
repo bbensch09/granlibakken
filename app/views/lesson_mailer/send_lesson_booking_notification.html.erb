@@ -14,6 +14,31 @@
       Thank you for confirming your group lesson reservation at the Granlibakken Ski Hill!
     </p>
 
+    <h4>Reservation Receipt</h4>
+    <p>
+      Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please save this email, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below, including names & ages of the students in your reservation, and whether or not rental equipment has been included. 
+    </p>
+    <h4>Lesson Details</h4>
+        <span class="lesson-detail-topic">Requester:</span> <%= @lesson.requester_name %> <br>
+        <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
+        <span class="lesson-detail-topic">Package:</span>  <%= @lesson.product_name %><br>
+        <span class="student-detail-topic">Equipment: </span><%= @lesson.includes_rentals? ? "Rental equipment is included." : "Do not need to rent equipment." %> <br>
+        <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
+        <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
+        <% if @lesson.package_info %>
+          <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
+        <% end %>
+        <span class="lesson-detail-topic">Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
+        <% if @lesson.package_info && @lesson.package_info.length > 1 %>
+          <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
+          <br><br>                  
+        <% end %>
+        <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
+
+    <%= render partial: 'lessons/price_details' %>
+
+    <%= render partial: 'lessons/student_details' %>
+
     <h4>What happens next?</h4>
     <ul>
       <li>Your lesson will begin promptly at the start time you've selected.</li>
@@ -29,16 +54,6 @@
     
     <p>If you have any questions about where to find rental gear or winter clothing, or are looking for last minute accommodations, please feel free to reach out to us at <a href="mailto:frontdesk@granlibakken.com">frontdesk@granlibakken.com.</p>
 
-    <h4>Lesson Details</h4>
-    <ul>
-      <li>Students: <%= @lesson.students.map(&:name).join(', ') %></li>
-      <li>Date: <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %></li>
-      <li>Slot: <%= @lesson.slot %></li>
-      <li>Location: <%= @lesson.location.name %></li>
-      <li>Objectives: <%= @lesson.objectives %></li>
-      <li>Rental Equipment: <%= @lesson.gear ? "Rentals included" : "Equipment not included" %></li>
-      <li>Lesson price: <%= number_to_currency(@lesson.price) %></li>
-    </ul>
     <p>
       If you need to make any changes to your lesson reservation, please visit: <a href="<%= lesson_url(@lesson)%>"</a><%=lesson_url(@lesson) %>.
     </p>

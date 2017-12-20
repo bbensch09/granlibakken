@@ -1,13 +1,15 @@
 <div class='nested-fields student-box'>
   <%= f.inputs do %>
     <div class='row'>
+      <div class="col-md-12"><h4 class="warning-text"> <b>Note:</b> Minimum age for group lessons is 8 years old. Students under 8 must sign up for a private lesson at <a href="www.snowschoolers.com" class="navy-link">www.snowschoolers.com</a>.</h4>
+      </div>
       <div class='col-md-6'>
         <label>Student Name</label>
         <span class='remove-student'>(<%= link_to_remove_association "Remove Student", f, class: 'remove-student' %>)</span>
         <%= f.text_field :name, placeholder: "Full name of student", class: "form-control", label: false, required:true %>                      
       </div>
       <div class='col-md-3'>
-        <label>Age</label>
+        <label>Age</label> 
         <%= f.text_field :age_range, class: "form-control", label: false, required:true %>
       </div>
       <div class='col-md-3'>

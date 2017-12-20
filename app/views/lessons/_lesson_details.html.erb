@@ -1,8 +1,17 @@
 <header class="page-header">
-  <h2>Review Lesson Details</h2>
+  <h2 id="lesson-details-header">Lesson Status</h2>
 </header>
-<p>Requester: <%= @lesson.requester ? @lesson.requester.name : @lesson.guest_email %>
-<br>Contact Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
+<p class="lesson-summary-info">
+Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest_email %>
+<% if @lesson.instructor %>
+  <br> Instructor: <%= @lesson.instructor.name %>
+<% else %>
+  <% if @lesson.pending_requester? %>
+    <br> No instructors available for this date and time. Please edit or cancel
+  <% else %>
+    <br> No instructor assigned yet
+  <% end %>
+<% end %>
 <br> Status: <%= @lesson.state %>
 <% if @lesson.review %>
 <br>
@@ -12,112 +21,48 @@
 <br> Tip Amount: <%= number_to_currency(@lesson.tip) %>
 <% end %>
 </p>
-<div class='row'>
+<div id='full-details-container'>
   <%if @lesson.public_feedback_for_student %>
       <%= render partial: 'lessons/confirmed_time_and_feedback' %>
   <% end %>
 
-  <div class="col-md-6">
-    <h3>Basic <strong>Info</strong></h3>
+  <div class="details-info-box">
+    <% if @lesson.deposit_status == 'confirmed' %>
+    <p>
+      Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
+    </p>
+    <% end %>
+
+    <h3>Lesson Summary</h3>
 
     <div class='row'>
 
-      <div class="col-md-3 col-xs-3">
+      <div class="col-md-12 col-xs-12">
       <h4 class="slot-details-mobile">
-        <b>Requester:</b> <br>
-        <b>Location:</b> <br>
-        <b>Sport:</b> <br>
-        <b>Date:</b> <br>
-        <b>Slot:</b> <br>
-        <b>Type:</b> <br>
-        <b>Price:</b>
-      </h4>
-      </div>
-      <div class="col-md-9 col-xs-9">
-      <h4 class="slot-details-mobile">
-        <%= @lesson.requester_name %> <br>
-        <%= @lesson.location.name %><br>
-        <%= @lesson.activity %><br>
-        <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
-        <span> <%= @lesson.slot %></span><br>
-        <%= @lesson.product_name %><br>
-        <% if @lesson.lesson_price.nil? %>
-          <%= number_to_currency(@lesson.price) %>
-        <% else %>
-          <%= number_to_currency(@lesson.lesson_price.to_i) %>
-        <% end %>
+        <span class="lesson-detail-topic">Requester:</span> <%= @lesson.requester_name %> <br>
+        <span class="lesson-detail-topic">Location:</span>  <%= @lesson.location.name %><br>
+        <span class="lesson-detail-topic">Package:</span>  <%= @lesson.product_name %><br>
+        <span class="student-detail-topic">Equipment: </span><%= @lesson.includes_rentals? ? "Rental equipment is included." : "Do not need to rent equipment." %> <br>
+        <span class="lesson-detail-topic">Sport:</span>  <%= @lesson.activity %><br>
+        <span class="lesson-detail-topic">Date:</span> <%= @lesson.date.strftime("%A %b #{@lesson.date.day.ordinalize}, %Y") %><br>
         <% if @lesson.package_info %>
-        <br><span class="italic"> <%= @lesson.package_info %></span>
+          <% @lesson.package_info.include?("custom start time") ? custom_slot_class = "strikethrough" : custom_slot_class = "normal" %>
         <% end %>
+        <span class="lesson-detail-topic">Slot:</span> <span class=<%= custom_slot_class%> > <%= @lesson.slot %></span> <br><br>
+        <% if @lesson.package_info && @lesson.package_info.length > 1 %>
+          <span class="lesson-detail-topic">Adjustments:</span>  <%= @lesson.package_info %>
+          <br><br>                  
+        <% end %>
+        <span class="lesson-detail-topic">Objectives:</span> <br> <%= @lesson.objectives %>
       </h4>
       </div>
     </div>
-
-    <!--
-    <div class='row'>
-       <div class="col-md-4">
-        <label>Duration:</label>
-        <div class=''><%= "#{@lesson.duration} hours" if @lesson.duration %></div>
-      </div>
-
-      <div class="col-md-4">
-        <label>Start Time:</label>
-        <div class=''><%= @lesson.start_time %></div>
-      </div>
-
-      <div class="col-md-4">
-        <label>Do you have gear?</label>
-        <div class=''><%= @lesson.gear? ? 'Yes, already have gear' : 'No, need gear.' %></div>
-      </div>
-    </div>
-     -->
   </div>
 
-  <div class="col-md-6">
-    <h3>Objectives <strong> and Experience</strong></h3>
-
-    <div class='col-md-12'>
-      <h4><b>Focus Area:</b></h4>
-      <div class=''><%= @lesson.focus_area %></div>
-    </div>
-
-    <div class='col-md-12'>
-      <h4><b>Objectives:</b></h4>
-      <div class=''><%= @lesson.objectives %></div>
-    </div>
+  <div class="details-info-box">
+      <%= render partial: 'price_details' %>
   </div>
-
-  <div class='col-md-12 student-box'>
-      <h3>Student <strong>Info</strong></h3>
-  <% @lesson.students.each do |student| %>
-    <div class='row'>
-      <div class='col-md-12'>
-        <h4><b>Name:</b>
-        <%= student.name %>
-          <br>
-        <b>Age Range:</b>
-        <%= student.age_range %>
-          <br>
-        <b>Gender:</b>
-        <%= student.gender %>
-        <br>
-        <b>About the student:</b>
-        <%= student.relationship_to_requester %>
-          <br>
-        <b>Most Recent Experience :</b>
-          <%= student.most_recent_experience.to_s %>
-          <br>
-       <b>Most Recent Level :</b>
-            <%= student.most_recent_level.to_s %>
-          <br>
-       <b>Other Athletic Experience :</b>
-            <%= student.other_sports_experience.to_s %>
-        </h4>
-      </div>
-    </div>
-    <hr>
-  <% end %>
-</div>
-
-
+  <div class='details-info-box'>
+      <%= render partial: 'student_details' %>
+  </div>
 </div>

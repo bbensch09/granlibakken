@@ -1,0 +1,12 @@
+<h3>Student <strong>Info</strong></h3>
+  <% @lesson.students.each do |student| %>
+    <div class='row'>
+      <div class='col-md-12'>
+        <h4><b><%= student.name %></b></h4>
+          <ul>
+            <li><span class="student-detail-topic">Age: </span><%= student.age_range %></li>
+            <li><span class="student-detail-topic">Gender: </span><%= student.gender %></li>
+            <li><span class="student-detail-topic">About student: </span><%= student.relationship_to_requester %></li>
+            <li><span class="student-detail-topic">Experience: </span><%= student.most_recent_level.to_s %></li>
+      </div>
+<% end %>

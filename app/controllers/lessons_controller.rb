@@ -286,7 +286,7 @@ class LessonsController < ApplicationController
       GoogleAnalyticsApi.new.event('lesson-requests', 'full_form-updated', params[:ga_client_id])
       @user_email = current_user ? current_user.email : "unknown"
       if @lesson.state == "ready_to_book"
-      LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
+      # LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
       end
       puts "!!!! Lesson update saved; lesson state is #{@lesson.state}"
     else
