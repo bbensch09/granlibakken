@@ -69,6 +69,7 @@ class LessonsController < ApplicationController
         puts "found #{@lessons.count} mactching lessons"
     end  
     puts "!!!! @lessons.count is #{@lessons.count}"
+    @lessons = @lessons.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.ready_to_book? || lesson.waiting_for_review?}
     render 'admin_index'
   end
 
