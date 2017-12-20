@@ -34,7 +34,7 @@ class Lesson < ActiveRecord::Base
     date = date[4..-1]
     case self.location.name
       when 'Granlibakken'
-        l = 'GB'
+        l = 'GB-GRP'
       else
         l = 'XX'
     end
