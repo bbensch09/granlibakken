@@ -1,0 +1,57 @@
+<div class='container'>
+<h1>Your Booked Lessons </h1>
+
+<table class="instructors-table">
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Sport</th>
+      <th>Student Name</th>
+      <th>Contact Email</th>
+      <th>Packate Type</th>
+      <th>Date</th>
+      <th>Time Slot</th>
+      <th>Status</th>
+    <% if current_user.user_type == "Snow Schoolers Employee" %>
+      <th>Price</th>
+      <th></th>
+      <% else %>
+      <th></th>
+      <th></th>
+    <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lessons.each do |lesson| %>
+        <% if lesson.upcoming? %>
+          <tr>
+            <td><%= lesson.location.name %></td>
+            <td><%= lesson.activity %></td>
+            <td><%= lesson.students.first.name %></td>
+            <% if lesson.requester %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.requester.email %></td>
+              <% else %>
+              <td class="lessons-table-cells lesson-student"><%= lesson.guest_email %></td>
+            <% end %>            <!-- <td><%= lesson.location.name %></td> -->
+            <% if lesson.product %>
+              <td><%= link_to "#{lesson.product.name}", lesson, class: "btn btn-default" %></td>
+            <% end %>
+            <td><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
+            <td><%= lesson.lesson_time.slot %></td>
+            <td><%= lesson.state %></td>
+            <% if current_user.user_type == "Snow Schoolers Employee" %>
+            <td><%= number_to_currency(lesson.visible_lesson_cost) %></td>
+            <td><%= link_to "Send Instructor SMS", send_reminder_sms_to_instructor_path(lesson), class: "btn btn-default" %></td>
+            <% else %>
+              <td></td>
+              <td></td>
+            <% end %>
+            <!-- <td><%= link_to 'Edit', edit_lesson_path(lesson) %></td> -->
+            <!-- <td><%= link_to 'Destroy', lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
+        <%end%>
+    <% end %>
+  </tbody>
+</table>
+</div>

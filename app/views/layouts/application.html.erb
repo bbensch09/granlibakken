@@ -200,8 +200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <% if current_user.instructor.nil? %>
                 <li><%= link_to name, "#", class: "nav-email-noaction" %></li>
                 <li><a href="/lessons" class="sign-up-btn"> View Lessons</a></li>
-                <li><%= link_to 'Inbox', '/my_conversations', class: 'sign-up-btn' %></li>
-                <li><a href="/browse" class="sign-up-btn">Browse</a></li>
+                <li><a href="/browse" class="sign-up-btn">Browse Instructors</a></li>
                 <!-- <li><%= link_to 'Teach with Us', '/apply', class: 'sign-up-btn' %></li> -->
               <% elsif current_user.active_instructor? %>
                 <li><%= link_to name, instructor_path(current_user.instructor) %></li>

@@ -1,6 +1,7 @@
 class LessonsController < ApplicationController
   respond_to :html
   skip_before_action :authenticate_user!, only: [:new, :new_specific_slot, :new_request, :create, :complete, :confirm_reservation, :update, :show, :edit]
+  before_action :confirm_admin_permissions, except: [:schedule, :book_product, :new, :new_request, :new_specific_slot, :create, :complete, :edit, :update, :confirm_reservation, :show, :index]
   before_action :save_lesson_params_and_redirect, only: [:create]
   before_action :create_lesson_from_session, only: [:create]
 
@@ -86,16 +87,21 @@ class LessonsController < ApplicationController
   end
 
   def index
+    if current_user && current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee"
       all_days = Section.select(:date).uniq.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(10)
       # Need to remove restriction after 100 lessons are booked
       @lessons = Lesson.first(100).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
-      @new_date = Section.new
       if session[:notice]
         flash.now[:notice] = session[:notice]
       end
+    elsif current_user
+        @lessons = Lesson.where(requester_id:current_user.id)
+        @lessons = @lessons.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+        render 'student_index'
+    end
   end
 
   def send_reminder_sms_to_instructor
