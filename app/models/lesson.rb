@@ -30,16 +30,18 @@ class Lesson < ActiveRecord::Base
   before_save :calculate_actual_lesson_duration, if: :just_finalized?
 
   def confirmation_number
-    date = self.lesson_time.date.to_s.gsub("-","")
-    date = date[4..-1]
-    case self.location.name
-      when 'Granlibakken'
-        l = 'GB-GRP'
-      else
-        l = 'XX'
-    end
-    id = self.id.to_s
-    confirmation_number = l+'-'+date+'-'+id
+      date = self.lesson_time.date.to_s.gsub("-","")
+      date = date[4..-1]
+      self.includes_rentals? ? rental_code = "-R" : rental_code = ""
+
+      case self.location.name
+        when 'Granlibakken'
+          l = 'GB-GRP'
+        else
+          l = 'XX'
+      end
+      id = self.id.to_s
+      confirmation_number = l+'-'+date+'-'+id+rental_code
   end
 
   def includes_rentals?
