@@ -27,10 +27,14 @@ Requester Email: <%= @lesson.requester ? @lesson.requester.email : @lesson.guest
   <% end %>
 
   <div class="details-info-box">
-    <% if @lesson.deposit_status == 'confirmed' %>
+    <% if @lesson.deposit_status == 'confirmed' || @lesson.date == Date.today %>
     <p>
       Your reservation confirmation number is: <span style="font-size:18px;"><%=@lesson.confirmation_number%></span>. Please either print this page or save the confirmation email you should automaticaly receive, as you will need to show your confirmation number the morning of your lesson as proof of payment. Please also find your lesson reservation details below. 
     </p>
+    <ul>
+        <li>If you are renting from the mountain, please plan to arrive at the ski hill at least <%= ENV['RENTAL_ADVANCE_TIME'] %> prior to your lesson so that you can get outfitted with your equipment. For afternoon lessons, if it is at all possible please come by in the morning before 1030am to pickup your equipment, because rental equipment selection is often extremely limited in the afternoon. When you arrive, please tell one of our staff your name and and your reservation confirmation# (below), and they'll be able to check you in.</li>
+    </ul>
+
     <% end %>
 
     <h3>Lesson Summary</h3>

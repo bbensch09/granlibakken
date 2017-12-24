@@ -6,7 +6,8 @@
     <%= f.input :instructor_id, :input_html => {value: @lesson.section.instructor.id, class:'form-control'}, label: false %>
     <% end %>
     <%= f.input :lesson_id,  :input_html => {value: @lesson.id, class:'form-control'}, label: false %>
-    <%= f.input :reviewer_id,  :input_html => {value: @lesson.requester.id, class:'form-control'}, label: false %>
+    <% @lesson.requester ? reviewer_id = @lesson.requester.id : reviewer_id = nil %>
+    <%= f.input :reviewer_id,  :input_html => {value: reviewer_id, class:'form-control'}, label: false %>
   </div>
     <!-- %= f.input :rating %> -->
 
