@@ -60,7 +60,11 @@
   <%end%>
 
 </table>
-      <%= link_to 'Create new section for this date & time', duplicate_ski_section_path(section.id), method: :post, class: "btn btn-default" %>
+      <% if section.sport_id == 1 %>
+      <%= link_to 'Create new ski section for this date & time', duplicate_ski_section_path(section.id), method: :post, class: "btn btn-default" %>
+      <% elsif section.sport_id == 2%>
+      <%= link_to 'Create new snowboard section for this date & time', duplicate_snowboard_section_path(section.id), method: :post, class: "btn btn-default" %>
+      <% end %>
       <%= link_to 'Remove this section', remove_section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   <!-- <hr class="hr-full"> -->
 </div>

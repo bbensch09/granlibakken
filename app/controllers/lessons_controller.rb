@@ -88,7 +88,7 @@ class LessonsController < ApplicationController
 
   def index
     if current_user && current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee"
-      all_days = Section.select(:date).uniq.sort{|a,b| a.date <=> b.date}
+      all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(30)
       @new_date = Section.new
