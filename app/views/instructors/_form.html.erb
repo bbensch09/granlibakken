@@ -84,11 +84,8 @@
   </div>
   <div class="">
     <div class="col-md-6 vertical-padding">
-      <% if current_user %>
-      <%= f.text_field :username, value: current_user.email, class: 'form-control', required:true %>
-        <% else %>
-              <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
-      <% end %>
+      <!-- %= f.text_field :username, value: current_user.email, class: 'form-control', required:true %> -->
+      <%= f.text_field :username, placeholder: "email@example.com", class: 'form-control', required:true %>
     </div>
     <div class="col-md-6 vertical-padding">
       <%= f.text_field :phone_number, placeholder: 'Phone number', class: 'form-control' %>
