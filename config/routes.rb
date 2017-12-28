@@ -106,6 +106,7 @@ Rails.application.routes.draw do
   end
   get '/admin_index' => 'instructors#admin_index'
   get 'lessons/admin_index' => 'lessons#admin_index', as: :lessons_admin_index
+  get 'lessons/daily-roster' => 'lessons#daily_roster', as: :lessons_daily_roster
   get 'lessons/admin_index_all' => 'lessons#admin_index_all', as: :lessons_admin_index_all
   get 'browse' => 'instructors#browse'
   get 'lessons/book_product/:id' => 'lessons#book_product'

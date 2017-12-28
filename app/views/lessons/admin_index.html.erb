@@ -7,7 +7,7 @@
 <div id="all-lessons" class="">
 <h1>All Lesson Reservations</h1>
 
-<% if current_user && current_user.email == "brian@snowschoolers.com" || current_user.user_type == "Granlibakken Employee" %>
+<% if current_user && current_user.email == "brian@snowschoolers.com" %>
 <div class="admin-viewable">
   <ul>
     <li>Total Lessons Booked: <%=Lesson.open_lesson_requests.count %></li>
@@ -30,19 +30,18 @@
 <table class="instructors-table">
   <thead>
     <tr>
-      <th class="lessons-table-cells lesson-instructor"> ID</th>
       <th class="lessons-table-cells lesson-date">Date</th>
       <th class="lessons-table-cells lesson-date">Type</th>
+      <th class="lessons-table-cells lesson-type">Time</th>
+      <th class="lessons-table-cells">#Students</th>
+      <th class="lessons-table-cells lesson-instructor"> Confirmation #</th>
       <th class="lessons-table-cells lesson-instructor"></th>
-      <th class="lessons-table-cells lesson-type">Type</th>
-      <th class="lessons-table-cells lesson-type">Rental Package?</th>
+      <th class="lessons-table-cells lesson-type">Rentals?</th>
       <th class="lessons-table-cells lesson-student">Reservation Name</th>
       <th class="lessons-table-cells lesson-student">Email</th>
       <th class="lessons-table-cells lesson-student">Phone</th>
       <th class="lessons-table-cells">State</th>
       <th class="lessons-table-cells">Price</th>
-      <th class="lessons-table-cells">#Students</th>
-      <th class="lessons-table-cells">Referral Source</th>
       <th class="lessons-table-cells"></th>
     </tr>
   </thead>
@@ -50,11 +49,12 @@
   <tbody>
     <% @lessons.each do |lesson| %>
           <tr>
-            <td class="lessons-table-cells"><%= lesson.id %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.lesson_time.date.strftime("%m/%d") %></td>
             <td class="lessons-table-cells lesson-date"><%= lesson.activity %></td>
-            <td class="lessons-table-cells lesson-instructor"><%= link_to "Review Lesson", lesson, class: "btn btn-default" %></td>
-            <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot[0..15] %></td>
+            <td class="lessons-table-cells lesson-type"><%= lesson.lesson_time.slot[0..5] %></td>
+            <td class="lessons-table-cells"><%= lesson.students.count %></td>
+            <td class="lessons-table-cells"><%= lesson.confirmation_number %></td>
+            <td class="lessons-table-cells lesson-instructor"><%= link_to "Details", lesson, class: "btn btn-default" %></td>
             <td class="lessons-table-cells lesson-student"><%= lesson.includes_rental? %></td>
             <td class="lessons-table-cells lesson-student"><%= lesson.name %></td>
             <% if lesson.requester %>
@@ -65,8 +65,6 @@
             <td class="lessons-table-cells"><%= lesson.phone_number %></td>
             <td class="lessons-table-cells"><%= lesson.state %></td>
             <td class="lessons-table-cells"><%= number_to_currency(lesson.price) %></td>
-            <td class="lessons-table-cells"><%= lesson.students.count %></td>
-            <td class="lessons-table-cells"><%= lesson.referral_source   %></td>
             <td><%= link_to 'Delete', lesson, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger" %></td>
           </tr>
     <% end %>

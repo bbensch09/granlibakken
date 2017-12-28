@@ -24,6 +24,17 @@ class LessonsController < ApplicationController
     end
   end
 
+  def daily_roster
+    @lessons_to_export = Lesson.all.select{|lesson| lesson.state == "booked" && lesson.date == Date.today}
+    @lessons = Lesson.all.select{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed? || lesson.finalizing? || lesson.booked? || lesson.payment_complete? || lesson.waiting_for_review?}
+    @lessons = @lessons.select{ |lesson| lesson.date == Date.today}
+    @lessons = @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
+    respond_to do |format|
+          format.html {render 'admin_index'}
+          format.csv { send_data @lessons_to_export.to_csv, filename: "group-lessons-export-#{Date.today}.csv" }
+    end
+  end
+
   def admin_index_all
     @lessons_to_export = Lesson.where(state:"booked")
     @lessons = Lesson.all.to_a

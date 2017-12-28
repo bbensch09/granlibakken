@@ -186,6 +186,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul class="nav nav-pills nav-main scroll-menu" id="topMain">
           <% if current_user && (current_user.user_type == "Granlibakken Employee" || current_user.user_type == "Ski Area Partner" || current_user.email == "brian@snowschoolers.com") %>           
            <li> <a href="/instructors" class="btn-success"> Instructors</a></li>
+           <li> <a href="/lessons/daily-roster" class="btn-success"> Daily Roster</a></li>
            <li> <a href="/lessons/admin_index" class="btn-success"> Reservations</a></li>
            <li> <a href="/lessons-availability" class="btn-success"> Availability</a></li>
             <li><a href="/lessons" class="btn-success"> Schedule </a></li>
