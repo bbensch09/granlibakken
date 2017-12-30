@@ -274,6 +274,7 @@ class LessonsController < ApplicationController
   end
 
   def update
+    puts "!!!!!!begin update action -- shouuld have already passed validations"
     @lesson = Lesson.find(params[:id])
     @original_lesson = @lesson.dup
     @lesson.assign_attributes(lesson_params)
@@ -307,11 +308,12 @@ class LessonsController < ApplicationController
       # LessonMailer.notify_admin_lesson_full_form_updated(@lesson, @user_email).deliver
       end
       puts "!!!! Lesson update saved; lesson state is #{@lesson.state}"
+    redirect_to @lesson
     else
       determine_update_state
       puts "!!!!!Lesson NOT saved, update notices determined by 'determine update state' method...?"
+      render 'edit'
     end
-    redirect_to @lesson
   end
 
   def show
