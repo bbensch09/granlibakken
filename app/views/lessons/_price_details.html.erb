@@ -5,9 +5,9 @@
 <div class='colm-md-12 col-xs-12'>
   <ul>    
     <% if @lesson.product %>
-    <li><span class="lesson-detail-topic">Price per student:</span> <%= number_to_currency(@lesson.product.price) %></li>
+    <li><span class="lesson-detail-topic">Price per student:</span> <%= number_to_currency((@lesson.price.to_f)/(@lesson.students.count)) %></li>
     <% end %>
-    <li><span class="lesson-detail-topic">Number of studetns:</span> <%= @lesson.students.count %></li>
+    <li><span class="lesson-detail-topic">Number of students:</span> <%= @lesson.students.count %></li>
     <li><span class="lesson-detail-topic">Total price:</span> <%= number_to_currency(@lesson.price) %></li>
   </ul>
 </div>
