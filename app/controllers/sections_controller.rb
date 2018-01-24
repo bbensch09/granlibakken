@@ -22,7 +22,6 @@ class SectionsController < ApplicationController
     # @sections = Section.all.select{|section| section.has_capacity? }
     @ski_sections = Section.where(sport_id:1)
     @snowboard_sections = Section.where(sport_id:2)
-    params[:start_date] = '2017-12-03'
   end
 
   # GET /sections
