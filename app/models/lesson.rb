@@ -530,7 +530,7 @@ class Lesson < ActiveRecord::Base
   end
 
   def add_lesson_to_section
-    return true if self.section_id
+    return true if self.section_id && self.sport_id == self.section.sport_id && self.date == self.section.date
     existing_sections = self.available_sections
       if self.available_sections.count == 0
       puts "!!!!!!!! The requested time slot is full!!!!!"

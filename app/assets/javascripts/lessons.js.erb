@@ -1,5 +1,13 @@
 console.log("lessons.js loaded");
 
+var dt = new Date();
+var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+if (time > "16:00:00") {
+    var MIN_DATE = 1
+  } else {
+    var MIN_DATE = 1
+  };
+
 var LESSON = {
   init: function(){
     // important objects
@@ -52,7 +60,7 @@ setDatepicker: function() {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2018-01-19',
+    minDate: MIN_DATE,
     maxDate: '2018-04-15',
     dateFormat: 'yy-mm-dd' 
   });
@@ -61,7 +69,7 @@ setDatepicker: function() {
       var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
       return [ blocked_dates_array.indexOf(string) == -1 ]
     },
-    minDate: '2018-01-19',
+    minDate: MIN_DATE,
     maxDate: '2018-04-15',
     dateFormat: 'yy-mm-dd' 
   });

@@ -98,20 +98,20 @@ class LessonsController < ApplicationController
   end
 
   def index
-    if current_user && current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee"
+    if current_user #&& current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee"
       all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(30)
       @new_date = Section.new
-      @lessons = Lesson.first(100).to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+      @lessons = Lesson.all.to_a.keep_if{|lesson| lesson.completed? || lesson.completable?}
       @lessons.sort! { |a,b| a.lesson_time.date <=> b.lesson_time.date }
       if session[:notice]
         flash.now[:notice] = session[:notice]
       end
-    elsif current_user
-        @lessons = Lesson.where(requester_id:current_user.id)
-        @lessons = @lessons.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-        render 'student_index'
+    # elsif current_user
+    #     @lessons = Lesson.where(requester_id:current_user.id)
+    #     @lessons = @lessons.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
+    #     render 'student_index'
     end
   end
 
