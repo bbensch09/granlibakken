@@ -98,7 +98,7 @@ class LessonsController < ApplicationController
   end
 
   def index
-    if current_user #&& current_user.email == 'brian@snowschoolers.com' || current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee"
+    if current_user && (current_user.user_type == 'Ski Area Partner' || current_user.user_type == "Granlibakken Employee" || current_user.email == 'brian@snowschoolers.com')
       all_days = Section.select(:date).distinct.sort{|a,b| a.date <=> b.date}
       @days = all_days.keep_if{|a| a.date >= Date.today}
       @days = @days.first(30)
@@ -108,10 +108,20 @@ class LessonsController < ApplicationController
       if session[:notice]
         flash.now[:notice] = session[:notice]
       end
-    # elsif current_user
-    #     @lessons = Lesson.where(requester_id:current_user.id)
-    #     @lessons = @lessons.to_a.keep_if{|lesson| lesson.completed? || lesson.completable? || lesson.confirmable? || lesson.confirmed?}
-    #     render 'student_index'
+    elsif current_user
+        @lessons = Lesson.where(requester_id:current_user.id)
+        if @lessons.count > 0
+          @new_date = Section.new
+          days =[]
+          @lessons.each do |lesson|
+            days << Section.select(:date).where(date:lesson.lesson_time.date).first
+          end
+          @days = days
+          render 'index'
+        else
+          redirect_to root_path
+          flash[:notice] = "You do not have permission to view that page."
+        end
     end
   end
 
