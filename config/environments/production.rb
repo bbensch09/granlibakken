@@ -111,7 +111,8 @@ Rails.application.configure do
   #GMAIL CONFIG
   config.action_mailer.default_url_options = { :host => ENV['HOST_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_deliveries = false
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.smtp_settings = {
