@@ -20,19 +20,15 @@
             <!-- <h1 id="homeHeading" class="shadow-box-highlight">Private Lessons Made Perfect<br> -->
                 <h1 id="homeHeading" class="home-header"><b>LESSONS </b> at <b>GRANLIBAKKEN</b><br>
                     <span class="smaller-text">Family Friendly. Lowest Prices. Best Value.</span>
-                    <span class="smaller-text"></span>
+                    <span class="smaller-text">To book a lesson, click below to visit <a href=https://www.snowschoolers.com/">SnowSchoolers.com</a></span>
                 </h1>
-                <h4><a href="#book-a-lesson" class="btn btn-primary btn-xl page-scroll">Book a Lesson</a></h4>
+                <h4><a href="https://www.snowschoolers.com/" class="btn btn-primary btn-xl page-scroll">Book a Lesson</a></h4>
                 <!-- <p class="shadow-box-highlight hero-subtext">Say goodbye to the morning hassle. Book a certified instructor online, and we'll meet you on the mountain!</p>             -->
                 <div class="shadow-box-highlight">
                     <p class="welcome-subheader"> Granlibakken is one of Tahoe's oldest continuously operating ski resorts, founded in the 1920s. 
                         <br class="hidden-unless-desktop"> 
                         Our historic ski hill is perfect for beginners and just minutes from your room. Reserve your spot today.
                     </p>
-                    <span class="welome-ctas">
-                        <a href="#book-a-lesson" class="btn btn-secondary btn-lg page-scroll"> Lift & Lesson prices</a>
-                        <!-- <a href="/tahoe-season-passes" class="btn btn-secondary btn-lg page-scroll">Shop Season Passes</a> -->
-                    </span>
                 </div>
                 <hr class="subheader-divider">
                 </p>
@@ -63,95 +59,6 @@
             </div>
         </div>
     </section>
-    <section id="book-a-lesson" class="pricing-section">
-        
-
-    <div id="lesson-flow-background">
-
-        <div class="homepage-lesson-container">
-            <img src="http://granlibakken.com/wp-content/uploads/int-top-ski-board-sled2.jpg" class="bg-photo" alt="" />
-            <%= render partial: "lessons/lesson_new_form" %>    
-        </div>
-    </div>
-
-    <div class='buffer'>
-        <hr class="deposit-hr-navy">
-    </div>
-
-        <div class="container">
-            <div class="row about-us">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading how-it-works navy-text">Why Granlibakken?</h2>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <h2 id="why-snowschoolers-subheader" class="center navy-text">Booking a ski or snowboard lesson should be <b>fast, easy, </b>and <b>convenient</b>.
-                </h2>
-                <hr class="deposit-hr-navy">
-                <div class="row">
-                    <p class="why-snowschoolers-text navy-text">
-                        At Granlibakken, we believe that <b> anyone </b> can learn how to ski or snowboard, without having to spend thousands of dollars. Whether its your first time on snow, or whether you're an experienced skier looking to take your skills to the next level, we're here to ensure you have the <b>perfect lesson experience</b>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>    
-       
-
-<section class="bg-white" id="tickets-and-rentals">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-xs12">
-                <%= render "welcome/tickets-and-rentals" %>
-                <hr class="light text-center">
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="bg-primary" id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-xs12 text-center">
-                <h2 class="section-heading">Life is stressful.  <br> Planning your ski vacation shouldn't be.</h2>
-                <a href="/lessons/new" class="btn btn-primary btn-xl page-scroll">Book your lesson today</a>
-                <hr>
-                <h3 class="beta-sign-up-offer" id="subscribe">
-                   Not ready to book today? <br> Enter your email below to subscribe to free weekly tips.
-               </h3>
-               <div class="col-md-12 beta_user-sign-up">
-                <%= form_for(@beta_user = BetaUser.new) do |f| %>
-                <% if @beta_user.errors.any? %>
-                <div id="error_explanation">
-                  <h2><%= pluralize(@beta_user.errors.count, "error") %> prohibited this beta_user from being saved:</h2>
-                  <ul>
-                      <% @beta_user.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                      <% end %>
-                  </ul>
-              </div>
-              <% end %>
-              <div class="email-input">
-                <%= f.email_field :email, autofocus: false, class:"black-text form-control beta-sign-up", placeholder:"Enter Email", required: true  %>
-                <%= f.submit "Subscribe for Updates", class:"btn btn-success btn-lg page-scroll" %>
-                <!-- <h3 class="offer-limitations">*First 100 sign ups receive 20% off their first lesson.</h3> -->
-            </div>
-            <% end %>
-        </div>
-        <!-- <h3 class="text-white">Instructors at Granlibakken loving sharing their passion for the mountain, and don't care to see your wallet drained. </h3> -->
-        <div class="col-md-8 col-md-offset-2">
-                     <!-- <h3> Beyond convenience, our <b> dynamic matching algorithm</b> ensures an expert Granlibakken instructor is always available. Book in advance to lock in early season rates, with one-hour early-bird specials <b>starting at just $89</b>.
-                     </h3> -->
-                     <!-- <h3>
-                     Booking last minute? Not a problem either. Prices only surge when it's necessary to get more instructors out on the hill.
-                 </h3> -->
-             </div>
-         </div>
-     </div>
- </div>
-</section>
 
 <section id="contact" class="bg-primary">
     <div class="container">
@@ -167,7 +74,7 @@
             </div>
             <div class="col-lg-4 text-center">
                 <i class="fa fa-envelope-o fa-3x sr-contact"></i>
-                <p><a href="mailto:frontdesk@granlibakken.com" class="white-text" target="_blank">frontdesk@granlibakken.com</a></p>
+                <p><a href="mailto:hello@snowschoolers.com" class="white-text" target="_blank">hello@snowschoolers.com</a></p>
             </div>
         </div>
     </div>
