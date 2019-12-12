@@ -1,17 +1,34 @@
 source 'https://rubygems.org'
-ruby "~> 2.3.0"
+ruby "~> 2.6.3"
+
+# gem to enable popper tooltips; did not work as of 11.25.18
+# gem 'popper_js'
+
+#gem for server-side API calls for from Heap
+gem 'heap', '~> 1.0'
 
 #Gems for new mobile-friendly calendar w/ gCal support
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
-
-#gem for server-side API calls for from Heap
-gem 'heap', '~> 1.0'
-#calendar views
 gem "simple_calendar", "~> 2.0"
 
-#install redis gem for actioncable troubleshooting
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+gem 'jquery-ui-rails'#, '5.0.5'
+gem 'jquery-timepicker-rails'
+#added to try to replace bootstrap datetimepicker(?)
+gem 'bootstrap-datepicker-rails'
+gem 'bootstrap3-datetimepicker-rails'#, '~> 4.17.47'
+gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
+
+
+#install redis gem to store resque jobs queue
 gem 'redis'
+gem 'resque'
+gem 'resque_mailer'
+gem 'resque-scheduler'
+
 
 #delayed_jobs for sending Twilio SMS messages if instructors are unresponsive
 gem 'delayed_job_active_record'
@@ -27,22 +44,25 @@ gem 'railties'
 gem 'sitemap_generator'
 # gem for cron jobs to schedule sitemap refresh, mkting emails, etc.
 gem 'whenever', :require => false
+
 #stripe for charging credit cards
 gem 'stripe'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.0.1'
-# gem 'rails', '5.1' --> for a future time
+# gem 'rails', '5.0.0.1'
+# gem 'rails', '5.0.0'
 #ensure that puma server is available
 gem 'puma'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 
 #twilio for SMS notifications
-gem 'twilio-ruby', '4.13.0'
+gem 'twilio-ruby'
 
 #AWS SDK's for storing images
-# gem 'aws-sdk-v1'
-gem 'aws-sdk', '~> 2'
+# new aws gems necessary for vulnerabilities
+gem 'aws-sdk-core'
+gem 'aws-sdk-s3'
+
 
 #Using CKeditor as the WYSIWYG editor for potential custom formatting in-line.
 # gem 'ckeditor'
@@ -77,16 +97,6 @@ gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-gem 'jquery-ui-rails', '5.0.5'
-gem 'jquery-timepicker-rails'
-#added to try to replace bootstrap datetimepicker(?)
-gem 'bootstrap-datepicker-rails'
-gem 'bootstrap3-datetimepicker-rails'#, '~> 4.17.47'
-gem 'rails-assets-datetimepicker', source: 'https://rails-assets.org'
-
-
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'jquery-turbolinks'
@@ -109,7 +119,7 @@ end
 # gem 'capistrano', group: :development
 
 gem 'devise'
-gem 'formtastic', '~> 3.0'
+gem 'formtastic'#, '~> 3.0'
 gem 'formtastic-bootstrap'
 gem 'omniauth-facebook', '~> 4.0.0'
 gem 'cocoon', '>= 1.2.0'

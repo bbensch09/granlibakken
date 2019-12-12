@@ -5,11 +5,13 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
 
-  #set queue adapter for delayed jobs
-  # config.active_job.queue_adapter = :delayed_job
+  config.hosts << "lessons.granlibakken.com"
+
+#set queue adapter for delayed jobs
+  config.active_job.queue_adapter = :delayed_job
 
   #show additional error messages raised in callbacks
-  config.active_record.raise_in_transactional_callbacks = true
+  # config.active_record.raise_in_transactional_callbacks = true
 
   config.cache_classes = false
 
@@ -53,9 +55,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => ENV['HOST_DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
   #during dev testing, uncomment the ENV variable below to disable Twilio messages
-  ENV['twilio_status'] = "inactive"
-  config.action_mailer.perform_deliveries = false
-  # config.action_mailer.perform_deliveries = true
+  # ENV['twilio_status'] = "inactive"
+  ENV['twilio_status'] = "active"
+  # config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.smtp_settings = {

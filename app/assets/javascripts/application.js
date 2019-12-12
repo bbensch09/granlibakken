@@ -13,16 +13,16 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require jquery
-//= require jquery-ui/datepicker
+//= require jquery-ui/widgets/datepicker
 //= require datetimepicker
 //= require jquery_ujs
 //= require jquery.timepicker.js
 //= require jquery.raty
 //= require moment
-//= require fullcalendar
+// = require bootstrap-datetimepicker
 //= require cocoon
+//= require_tree .
 //= require tinymce-jquery
-//= require fullcalendar/gcal
 //= require_self
 //= require_tree ./channels
-//= require_tree .
+
